@@ -45,3 +45,26 @@ harcamalar = [[10],[30],[50]]
 print(model.predict(harcamalar))
 
 #***************************************
+
+# MSE : Hata Kareler Ortalaması
+# RMSE : Hata Kareler Ortalamasının Karekökü
+
+print(y.head())
+print(model.predict(X)[0:5])
+
+gercek_y = y[:10]
+tahmin_edilen_y = pd.DataFrame(model.predict(X)[:10])
+
+hatalar = pd.concat([gercek_y, tahmin_edilen_y], axis = 1)
+hatalar.columns = ["gerçek y", "tahmin edilen y"]
+
+hatalar["hata"] = hatalar["gerçek y"] - hatalar["tahmin edilen y"]
+
+hatalar["hata kareler"] = hatalar["hata"]**2
+
+import numpy as np
+
+hatalar["hata kareler ortalaması"] = np.mean(hatalar["hata kareler"])
+
+print(hatalar)
+
